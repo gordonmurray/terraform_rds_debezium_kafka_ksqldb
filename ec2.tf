@@ -15,7 +15,7 @@ data "aws_ami" "ubuntu" {
   owners = ["099720109477"] # Canonical
 }
 
-resource "aws_instance" "debezium" {
+resource "aws_instance" "debezium_ksqldb" {
   ami                     = data.aws_ami.ubuntu.id
   instance_type           = "t4g.small"
   key_name                = aws_key_pair.key.key_name
