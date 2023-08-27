@@ -34,11 +34,18 @@ Project: gordonmurray/terraform_rds_debezium_kafka_ksqldb
 ──────────────────────────────────
 26 cloud resources were detected:
 ∙ 4 were estimated, 3 of which include usage-based costs, see https://infracost.io/usage-file
-∙ 22 were free, rerun with --show-skipped to see details
-
-┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━┓
-┃ Project                                            ┃ Monthly cost ┃
-┣━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╋━━━━━━━━━━━━━━┫
-┃ gordonmurray/terraform_rds_debezium_kafka_ksqldb   ┃ $31          ┃
-┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┻━━━━━━━━━━━━━━┛
+∙ 22 were free:
+  ∙ 5 x aws_security_group_rule
+  ∙ 3 x aws_route_table_association
+  ∙ 3 x aws_subnet
+  ∙ 2 x aws_security_group
+  ∙ 1 x aws_db_option_group
+  ∙ 1 x aws_db_parameter_group
+  ∙ 1 x aws_db_subnet_group
+  ∙ 1 x aws_internet_gateway
+  ∙ 1 x aws_key_pair
+  ∙ 1 x aws_route
+  ∙ 1 x aws_route_table
+  ∙ 1 x aws_secretsmanager_secret_version
+  ∙ 1 x aws_vpc
 ```
