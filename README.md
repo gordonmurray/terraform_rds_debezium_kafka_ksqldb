@@ -3,6 +3,15 @@
  A mini environment on AWS created using Terraform to show how the CDC process works end to end. We will keep things small to keep costs under control.
 
 
+```
+ansible-galaxy collection install cloud.terraform
+
+terraform init
+
+terraform apply
+```
+
+
 # Cost estimate
 
 ```
@@ -48,4 +57,13 @@ Project: gordonmurray/terraform_rds_debezium_kafka_ksqldb
   ∙ 1 x aws_route_table
   ∙ 1 x aws_secretsmanager_secret_version
   ∙ 1 x aws_vpc
+```
+
+### Debugging
+
+```
+export TF_LOG=DEBUG
+export TF_LOG_PATH=./terraform.log
+
+ansible-playbook playbook.yml -i hosts --user ubuntu
 ```
