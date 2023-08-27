@@ -1,6 +1,6 @@
-# terraform_rds_debezium_kafka_ksqldb
-CDC with Debezium, WarpStream and ksqlDB
+# Terraform RDS, Debezium, Kafka and ksqlDB
 
+ A mini environment on AWS created using Terraform to show how the CDC process works end to end. We will keep things small to keep costs under control.
 
 
 # Cost estimate
