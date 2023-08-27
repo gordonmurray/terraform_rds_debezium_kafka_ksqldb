@@ -3,7 +3,7 @@
 
 provider "registry.terraform.io/ansible/ansible" {
   version     = "1.1.0"
-  constraints = "~> 1.1.0"
+  constraints = "1.1.0"
   hashes = [
     "h1:7xrnVIriMIjo18EPNksMCRtERYj2dDae9Y3zVZRR6iM=",
     "zh:183fe9fabb56454f776b6b433bbeba5dc5e91fbab0afd53c4ccf1f7c3afe02a5",
