@@ -16,3 +16,8 @@ variable "database_name" {
   type    = string
   default = "my-database"
 }
+
+variable "warpstream_broker" {
+  type    = string
+  default = "localhost:9092"
+}
