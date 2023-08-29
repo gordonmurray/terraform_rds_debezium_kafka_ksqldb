@@ -1,9 +1,18 @@
 ---
-- name: Hello World Playbook
+- name: Debezium and ksqlDB
+
   hosts: all
-  tasks:
-    - name: Create a directory
-      ansible.builtin.file:
-        path: /home/ubuntu/gordon4
-        state: directory
-        mode: '0755'
+
+  gather_facts: false
+
+  become: true
+
+  # allowing logs to be printed on the console can expose sensitive information
+  # when deploying to production via CI/CD
+  no_log: false
+
+  #vars_files:
+  #  - vars/main.yml
+
+  roles:
+    - debezium # Any sources, usually mariadb
