@@ -2,3 +2,6 @@
 # Steps to configure Debezium
 - name: Configure Debezium
   include_tasks: debezium.yml
+
+- name: Configure ksqlDB
+  include_tasks: ksqldb.yml

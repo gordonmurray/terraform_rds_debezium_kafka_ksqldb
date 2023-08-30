@@ -1,0 +1,14 @@
+[Unit]
+Description=ksqldb
+After=network.target
+
+[Service]
+User=ubuntu
+WorkingDirectory=/usr/bin/
+ExecStart=/usr/bin/sudo /usr/bin/ksql-server-start /etc/ksqldb/ksql-server.properties
+Restart=always
+StandardOutput=file:/var/log/ksqldb.log
+StandardError=file:/var/log/ksqldb.log
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,57 @@
+---
+- name: Update APT cache
+  apt:
+    update_cache: yes
+    cache_valid_time: 3600
+
+- name: Install some requirements
+  apt:
+    name:
+    - openjdk-11-jre
+    - openjdk-11-jdk
+    - software-properties-common
+    - curl
+    - gnupg
+    state: present
+
+- name: Add APT key
+  apt_key:
+    url: http://ksqldb-packages.s3.amazonaws.com/deb/0.28/archive.key
+    state: present
+
+- name: Add APT repository
+  apt_repository:
+    repo: "deb http://ksqldb-packages.s3.amazonaws.com/deb/0.28 stable main"
+    state: present
+
+- name: Update package cache
+  apt:
+    update_cache: yes
+
+- name: Install confluent-ksqldb package
+  apt:
+    name: confluent-ksqldb
+    state: present
+
+
+- name: Upload the service file
+  copy:
+    src: ksqldb.service
+    dest: /etc/systemd/system/ksqldb.service
+    mode: "0644"
+    owner: "root"
+    group: "root"
+  register: upload_result
+
+- name: Perform systemctl daemon-reload
+  systemd:
+    name: ""
+    daemon_reload: yes
+  when: upload_result.changed
+
+- name: Start ksqldb service
+  service:
+    name: ksqldb
+    state: started
+    enabled: yes
+  when: upload_result.changed
