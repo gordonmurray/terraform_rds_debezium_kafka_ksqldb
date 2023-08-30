@@ -21,13 +21,14 @@ resource "aws_db_instance" "default" {
   allocated_storage            = 20
   storage_type                 = "gp2"
   engine                       = "mariadb"
-  engine_version               = "10.6.10"
+  engine_version               = "10.6.14"
   instance_class               = "db.t4g.micro"
   db_subnet_group_name         = aws_db_subnet_group.default.name
   username                     = "Admin"
   password                     = random_password.password.result
   parameter_group_name         = aws_db_parameter_group.default.id
   option_group_name            = aws_db_option_group.default.id
+  auto_minor_version_upgrade   = false
   skip_final_snapshot          = true
   publicly_accessible          = false
   multi_az                     = false
