@@ -1,0 +1,11 @@
+[Unit]
+Description=debezium
+
+[Service]
+User=ubuntu
+WorkingDirectory=/home/ubuntu/kafka/bin/
+ExecStart=/home/ubuntu/kafka/bin/connect-distributed.sh /home/ubuntu/kafka/config/connect-distributed.properties > /var/log/debezium.log
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
