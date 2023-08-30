@@ -12,19 +12,46 @@
       - openjdk-11-jdk
     state: present
 
-- name: Create destination folder
+- name: Create kafka destination folder
   file:
     path: /home/ubuntu/kafka
     state: directory
 
-- name: Download .tgz file
+- name: Download kafka tgz file
   get_url:
     url: "https://downloads.apache.org/kafka/3.4.1/kafka_2.13-3.4.1.tgz"
     dest: /home/ubuntu/kafka.tgz
 
-- name: Uncompress .tgz file
+- name: Uncompress kafka.tgz file
   unarchive:
     src: /home/ubuntu/kafka.tgz
     dest: /home/ubuntu/kafka/
     remote_src: yes
     extra_opts: "--strip-components=1"
+
+- name: Download mysql connector
+  get_url:
+    url: "https://repo1.maven.org/maven2/io/debezium/debezium-connector-mysql/2.1.2.Final/debezium-connector-mysql-2.1.2.Final-plugin.tar.gz"
+    dest: /home/ubuntu/debezium-connector-mysql.tgz
+
+- name: Uncompress dmysql connector .tgz file
+  unarchive:
+    src: /home/ubuntu/debezium-connector-mysql.tgz
+    dest: /usr/share/java/
+    remote_src: yes
+
+- name: Read the content of the kafka connect distributed file
+  slurp:
+    src: /home/ubuntu/kafka/config/connect-distributed.properties
+  register: file_content
+
+- name: Check if the plugins line exists in the file
+  set_fact:
+    line_exists: "{{ 'plugin.path=/usr/share/java/' in (file_content.content | b64decode).splitlines() }}"
+
+- name: Add the line to the file if not exists
+  lineinfile:
+    path: /home/ubuntu/kafka/config/connect-distributed.properties
+    line: "plugin.path=/usr/share/java/"
+    state: present
+  when: not line_exists
