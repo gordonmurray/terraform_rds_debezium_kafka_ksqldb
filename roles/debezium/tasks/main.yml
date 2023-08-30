@@ -1,13 +1,30 @@
 ---
-    - name: Update APT cache
-      apt:
-        update_cache: yes
-        cache_valid_time: 3600
+- name: Update APT cache
+  apt:
+    update_cache: yes
+    cache_valid_time: 3600
 
-    - name: Install some requirements
-      apt:
-        name:
-          - jq # nice to have
-          - openjdk-11-jre
-          - openjdk-11-jdk
-        state: present
+- name: Install some requirements
+  apt:
+    name:
+      - jq # nice to have
+      - openjdk-11-jre
+      - openjdk-11-jdk
+    state: present
+
+- name: Create destination folder
+  file:
+    path: /home/ubuntu/kafka
+    state: directory
+
+- name: Download .tgz file
+  get_url:
+    url: "https://downloads.apache.org/kafka/3.4.1/kafka_2.13-3.4.1.tgz"
+    dest: /home/ubuntu/kafka.tgz
+
+- name: Uncompress .tgz file
+  unarchive:
+    src: /home/ubuntu/kafka.tgz
+    dest: /home/ubuntu/kafka/
+    remote_src: yes
+    extra_opts: "--strip-components=1"

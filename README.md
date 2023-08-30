@@ -65,5 +65,7 @@ Project: gordonmurray/terraform_rds_debezium_kafka_ksqldb
 export TF_LOG=DEBUG
 export TF_LOG_PATH=./terraform.log
 
+export ANSIBLE_LOG_PATH=./ansible.log
+
 ansible-playbook playbook.yml -i hosts --user ubuntu
 ```
