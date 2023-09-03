@@ -1,4 +1,7 @@
 ---
+- name: Set up the database
+  include_tasks: database.yml
+
 - name: Install WarpStream
   include_tasks: warpstream.yml
 

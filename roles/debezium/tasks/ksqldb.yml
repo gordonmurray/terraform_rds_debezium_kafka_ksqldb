@@ -33,7 +33,6 @@
     name: confluent-ksqldb
     state: present
 
-
 - name: Upload the service file
   copy:
     src: ksqldb.service

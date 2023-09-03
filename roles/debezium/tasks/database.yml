@@ -34,3 +34,17 @@
     # No spaces between commas in the 'priv' section next
     priv: "*.*:SELECT,INSERT,DELETE,UPDATE,CREATE,REFERENCES,INDEX,CREATE TEMPORARY TABLES,LOCK TABLES,EXECUTE,SHOW VIEW,EVENT"
     state: present
+
+- name: Upload SQL file
+  copy:
+    src: create_users_table.sql
+    dest: /home/ubuntu/create_users_table.sql
+
+- name: Load SQL script to create a table
+  mysql_db:
+    login_host: "{{ rds_host }}"
+    login_user: "{{ rds_username }}"
+    login_password: "{{ rds_password }}"
+    name: "my_database"
+    state: import
+    target: /home/ubuntu/create_users_table.sql
