@@ -1,8 +1,10 @@
 # Terraform RDS, Debezium, Kafka and ksqlDB
 
- A mini environment on AWS created using Terraform to show how the CDC process works end to end. We will keep things small to keep costs under control.
+A mini environment on AWS created using Terraform to show how the CDC process works end to end. We will keep things small to keep costs under control.
 
+Once you clone the respsitory, perform the following:
 
+Update the Variables in playbook.yml to include your WarpStream API key and cluster ID
 ```
 ansible-galaxy collection install cloud.terraform
 
