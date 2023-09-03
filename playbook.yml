@@ -11,8 +11,11 @@
   # when deploying to production via CI/CD
   no_log: false
 
-  #vars_files:
-  #  - vars/main.yml
+  vars:
+    # Deinfe your WarpStream details here
+    warpstream_api_key: aks_xxxxx
+    warpstream_cluster_id: vci_xxxxx
+    warpstream_s3_bucket: "my-bucket"
 
   roles:
     - debezium # Any sources, usually mariadb

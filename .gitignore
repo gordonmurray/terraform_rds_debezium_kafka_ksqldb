@@ -34,3 +34,6 @@ override.tf.json
 terraform.rc
 terraform.log
 ansible.log
+
+# Ignore local testing files
+*.gz

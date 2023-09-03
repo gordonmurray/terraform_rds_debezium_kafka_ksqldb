@@ -1,5 +1,7 @@
 ---
-# Steps to configure Debezium
+- name: Install WarpStream
+  include_tasks: warpstream.yml
+
 - name: Configure Debezium
   include_tasks: debezium.yml
 
