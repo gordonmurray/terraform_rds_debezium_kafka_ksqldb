@@ -37,3 +37,6 @@ ansible.log
 
 # Ignore local testing files
 *.gz
+
+# Ignore generated file
+roles/debezium/vars/main.yml

@@ -1,0 +1,36 @@
+---
+- name: Update APT cache
+  apt:
+    update_cache: yes
+    cache_valid_time: 3600
+
+- name: Install some requirements
+  apt:
+    name:
+      - mariadb-client
+      - python3-pip
+    state: present
+
+- name: Install pymysql python package
+  pip:
+    name: pymysql
+
+- name: Create database
+  mysql_db:
+    login_host: "{{ rds_host }}"
+    login_user: "{{ rds_username }}"
+    login_password: "{{ rds_password }}"
+    name: "my_database"
+    state: present
+
+- name: Add user for Debezium
+  mysql_user:
+    login_host: "{{ rds_host }}"
+    login_user: "{{ rds_username }}"
+    login_password: "{{ rds_password }}"
+    name: "debezium"
+    host: "%"
+    password: "debezium_password"
+    # No spaces between commas in the 'priv' section next
+    priv: "*.*:SELECT,INSERT,DELETE,UPDATE,CREATE,REFERENCES,INDEX,CREATE TEMPORARY TABLES,LOCK TABLES,EXECUTE,SHOW VIEW,EVENT"
+    state: present
