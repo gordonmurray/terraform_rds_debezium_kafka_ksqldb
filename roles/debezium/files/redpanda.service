@@ -2,7 +2,7 @@
 Description=redpanda
 
 [Service]
-User=ubuntu
+User=root
 WorkingDirectory=/opt/redpanda/bin/
 ExecStart=/opt/redpanda/bin/redpanda --redpanda-cfg /opt/redpanda/conf/redpanda.yaml
 Restart=always
