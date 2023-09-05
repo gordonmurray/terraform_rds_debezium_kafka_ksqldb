@@ -1,0 +1,11 @@
+[Unit]
+Description=redpanda
+
+[Service]
+User=ubuntu
+WorkingDirectory=/opt/redpanda/bin/
+ExecStart=/opt/redpanda/bin/redpanda --redpanda-cfg /opt/redpanda/conf/redpanda.yaml
+Restart=always
+
+[Install]
+WantedBy=multi-user.target

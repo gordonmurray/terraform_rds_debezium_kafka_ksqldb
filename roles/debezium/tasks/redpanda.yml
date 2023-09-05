@@ -1,0 +1,48 @@
+- name: Check if file exists
+  stat:
+    path: /home/ubuntu/redpanda-22.3.3-arm64.tar.gz
+  register: file_stat
+
+- name: Download file if not exists
+  get_url:
+    url: "https://dl.redpanda.com/nzc4ZYQK3WRGd9sy/redpanda/raw/names/redpanda-arm64/versions/22.3.3/redpanda-22.3.3-arm64.tar.gz"
+    dest: /home/ubuntu/redpanda-22.3.3-arm64.tar.gz
+  when: not file_stat.stat.exists
+
+- name: Ensure directory exists
+  file:
+    path: /opt/redpanda
+    state: directory
+
+- name: Ensure directory exists
+  file:
+    path: /var/lib/redpanda/data
+    state: directory
+
+- name: Extract .tar.gz file
+  unarchive:
+    src: /home/ubuntu/redpanda-22.3.3-arm64.tar.gz
+    dest: /opt/redpanda
+    remote_src: yes
+
+- name: Upload service template file
+  template:
+    src: templates/redpanda.service.j2
+    dest: /etc/systemd/system/redpanda.service
+    owner: root
+    group: root
+    mode: 0644
+  register: upload_result
+
+- name: Perform systemctl daemon-reload
+  systemd:
+    name: ""
+    daemon_reload: yes
+  when: upload_result.changed
+
+- name: Start redpanda service
+  service:
+    name: redpanda
+    state: started
+    enabled: yes
+  when: upload_result.changed
