@@ -4,7 +4,7 @@ Description=warpstream
 [Service]
 User=ubuntu
 WorkingDirectory=/home/ubuntu/
-ExecStart=/home/ubuntu/.warpstream/warpstream agent -agentPoolName apn_default -bucketURL mem://{{ warpstream_s3_bucket }} -apiKey {{ warpstream_api_key }} -defaultVirtualClusterID {{ warpstream_cluster_id }} > /var/log/warpstream.log
+ExecStart=/home/ubuntu/.warpstream/warpstream_agent_linux_arm64 agent -agentPoolName apn_default -bucketURL mem://{{ warpstream_s3_bucket }} -apiKey {{ warpstream_api_key }} -defaultVirtualClusterID {{ warpstream_cluster_id }}
 Restart=always
 
 [Install]
