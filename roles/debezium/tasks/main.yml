@@ -2,11 +2,11 @@
 - name: Set up the database
   include_tasks: database.yml
 
-#- name: Install WarpStream
-#  include_tasks: warpstream.yml
+- name: Install WarpStream
+  include_tasks: warpstream.yml
 
-- name: Install RedPanda
-  include_tasks: redpanda.yml
+#- name: Install RedPanda
+#  include_tasks: redpanda.yml
 
 - name: Configure Debezium
   include_tasks: debezium.yml
