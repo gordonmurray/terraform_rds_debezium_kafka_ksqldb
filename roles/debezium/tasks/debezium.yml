@@ -36,27 +36,11 @@
     url: "https://repo1.maven.org/maven2/io/debezium/debezium-connector-mysql/2.1.2.Final/debezium-connector-mysql-2.1.2.Final-plugin.tar.gz"
     dest: /home/ubuntu/debezium-connector-mysql.tgz
 
-- name: Uncompress dmysql connector .tgz file
+- name: Uncompress mysql connector .tgz file
   unarchive:
     src: /home/ubuntu/debezium-connector-mysql.tgz
     dest: /usr/share/java/
     remote_src: yes
-
-- name: Read the content of the kafka connect distributed file
-  slurp:
-    src: /home/ubuntu/kafka/config/connect-distributed.properties
-  register: file_content
-
-- name: Check if the plugins line exists in the file
-  set_fact:
-    line_exists: "{{ 'plugin.path=/usr/share/java/' in (file_content.content | b64decode).splitlines() }}"
-
-- name: Add the line to the file if not exists
-  lineinfile:
-    path: /home/ubuntu/kafka/config/connect-distributed.properties
-    line: "plugin.path=/usr/share/java/"
-    state: present
-  when: not line_exists
 
 - name: Upload the service file
   copy:
@@ -66,6 +50,14 @@
     owner: "root"
     group: "root"
   register: upload_result
+
+- name: Upload and interpolate template
+  template:
+    src: connect-distributed.properties.j2
+    dest: /home/ubuntu/kafka/config/connect-distributed.properties
+    owner: root
+    group: root
+    mode: '0644'
 
 - name: Perform systemctl daemon-reload
   systemd:

@@ -26,7 +26,7 @@ resource "aws_msk_cluster" "kafka" {
 
   configuration_info {
     arn      = aws_msk_configuration.configuration_debezium.arn
-    revision = 1
+    revision = 2
   }
 
   client_authentication {
@@ -91,5 +91,7 @@ resource "aws_msk_configuration" "configuration_debezium" {
   server_properties = <<PROPERTIES
 auto.create.topics.enable = true
 zookeeper.connection.timeout.ms = 1000
+default.replication.factor=2
+offsets.topic.replication.factor=1
 PROPERTIES
 }

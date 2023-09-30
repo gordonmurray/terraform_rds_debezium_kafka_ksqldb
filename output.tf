@@ -22,6 +22,7 @@ resource "local_file" "output_file" {
 rds_host: ${aws_db_instance.default.address}
 rds_username: ${aws_db_instance.default.username}
 rds_password: ${random_password.password.result}
+brokers: ${aws_msk_cluster.kafka.bootstrap_brokers}
 EOF
 }
 
