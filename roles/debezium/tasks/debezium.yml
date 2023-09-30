@@ -71,3 +71,18 @@
     state: started
     enabled: yes
   when: upload_result.changed
+
+- name: Upload and interpolate the source connector
+  template:
+    src: connector.json.j2
+    dest: /home/ubuntu/connector.json
+    owner: ubuntu
+    group: ubuntu
+    mode: "0664"
+
+- name: PUT the source connector config to Debezium
+  ansible.builtin.shell:
+    cmd: >
+      curl -X PUT http://localhost:8083/connectors/my-connector/config
+      -H "Content-Type: application/json"
+      -d @/home/ubuntu/connector.json

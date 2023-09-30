@@ -1,0 +1,20 @@
+{
+    "connector.class": "io.debezium.connector.mysql.MySqlConnector",
+    "tasks.max": "1",
+    "database.hostname": "{{ rds_host }}",
+    "database.port": "3306",
+    "database.user": "{{ rds_username }}",
+    "database.password": "{{ rds_password }}",
+    "database.server.id": "100",
+    "database.server.name": "my_database",
+    "database.whitelist": "my_database",
+    "table.include.list": "my_database.users",
+    "database.history.kafka.bootstrap.servers": "{{ brokers }}",
+    "schema.history.internal.kafka.bootstrap.servers": "{{ brokers }}",
+    "schema.history.internal.kafka.topic": "schema_hisory",
+    "database.history.kafka.topic": "database_history",
+    "include.schema.changes": "true",
+    "topic.prefix": "example",
+    "transforms": "unwrap",
+    "transforms.unwrap.type": "io.debezium.transforms.ExtractNewRecordState"
+}
