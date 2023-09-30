@@ -1,6 +1,6 @@
 # Terraform RDS, Debezium, Kafka and ksqlDB
 
- This creates an environment on AWS using Terraform to show a Change Data Capture (CDC) process works end to end from MariaDB on RDS to Redis on Elasticache.
+Create an environment on AWS using Terraform and Ansible to show a Change Data Capture (CDC) process working end to end from MariaDB on RDS to Redis on Elasticache, using Debezium and ksqlDB.
 
 You will need:
 
