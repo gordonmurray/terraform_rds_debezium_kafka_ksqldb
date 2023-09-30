@@ -24,3 +24,9 @@ rds_username: ${aws_db_instance.default.username}
 rds_password: ${random_password.password.result}
 EOF
 }
+
+output "msk_bootstrap_brokers" {
+  value       = aws_msk_cluster.kafka.bootstrap_brokers
+  description = "MSK Cluster Bootstrap Brokers"
+}
+
