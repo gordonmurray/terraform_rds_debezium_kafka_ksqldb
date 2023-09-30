@@ -1,6 +1,6 @@
 # Terraform RDS, Debezium, Kafka and ksqlDB
 
-This creates an environment on AWS using Terraform to show how the CDC process works end to end from MariaDB on RDS to Redis on Elasticache.
+ This creates an environment on AWS using Terraform to show a Change Data Capture (CDC) process works end to end from MariaDB on RDS to Redis on Elasticache.
 
 You will need:
 
@@ -23,10 +23,9 @@ terraform apply
 
 # Options
 
-If you would prefer not to use MSK, you can update /roles/debezium/tasks/main.yml to install either WarpStream or RedPanda instead and delete the msk.tf file so an MSK cluster isn't created.
+If you would prefer not to use MSK, you can update /roles/debezium/tasks/main.yml to use Ansible to install either [WarpStream](https://www.warpstream.com) or [RedPanda](https://redpanda.com/) instead. Also delete the msk.tf and s3.tf files so an MSK cluster and an s3 bucket isn't created.
 
 If you are using WarpStream, populate the WarpStream vars in playbook.yml to include your API key, cluster ID and an s3 bucket
-
 
 # Cost estimate
 
