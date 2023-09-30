@@ -127,3 +127,9 @@ To see any output from Ansible, run the following before performing a Terraform 
 ```
 export ANSIBLE_LOG_PATH=./ansible.log
 ```
+
+To connect to ksqldb locally use:
+
+```
+sudo /usr/bin/ksql http://0.0.0.0:8088
+```

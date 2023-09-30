@@ -48,6 +48,14 @@
     daemon_reload: yes
   when: upload_result.changed
 
+- name: Upload and interpolate template
+  template:
+    src: ksql-server.properties.j2
+    dest: /etc/ksqldb/ksql-server.properties
+    owner: root
+    group: root
+    mode: '0644'
+
 - name: Start ksqldb service
   service:
     name: ksqldb
