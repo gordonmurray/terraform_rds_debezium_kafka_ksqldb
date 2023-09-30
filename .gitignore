@@ -40,3 +40,5 @@ ansible.log
 
 # Ignore generated file
 roles/debezium/vars/main.yml
+
+.infracost
