@@ -1,7 +1,7 @@
 # 3 x t3.small: $109.28/month
 resource "aws_msk_cluster" "kafka" {
   cluster_name           = "kafka"
-  kafka_version          = "3.5.1"
+  kafka_version          = "2.8.1"
   number_of_broker_nodes = 3
 
   broker_node_group_info {
@@ -84,14 +84,12 @@ resource "aws_msk_cluster" "kafka" {
 }
 
 resource "aws_msk_configuration" "configuration_debezium" {
-  kafka_versions = ["3.5.1"]
+  kafka_versions = ["2.8.1"]
   name           = "kafka-configuration"
   description    = "MSK config, auto create topic for Debezium"
 
   server_properties = <<PROPERTIES
 auto.create.topics.enable = true
 zookeeper.connection.timeout.ms = 1000
-default.replication.factor=2
-offsets.topic.replication.factor=1
 PROPERTIES
 }
