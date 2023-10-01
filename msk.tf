@@ -90,6 +90,7 @@ resource "aws_msk_configuration" "configuration_debezium" {
 
   server_properties = <<PROPERTIES
 auto.create.topics.enable = true
-zookeeper.connection.timeout.ms = 1000
+delete.topic.enable = true
+log.retention.ms = -1
 PROPERTIES
 }

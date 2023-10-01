@@ -27,3 +27,13 @@ resource "aws_security_group" "kafka" {
     Name = var.default_tag
   }
 }
+
+resource "aws_security_group" "redis" {
+  name        = "redis"
+  description = "redis access"
+  vpc_id      = aws_vpc.vpc.id
+
+  tags = {
+    Name = var.default_tag
+  }
+}

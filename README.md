@@ -30,7 +30,6 @@ If you are using WarpStream, populate the WarpStream vars in playbook.yml to inc
 # Cost estimate
 
 ```
-
 Project: gordonmurray/terraform_rds_debezium_kafka_ksqldb
 
  Name                                                                     Monthly Qty  Unit                    Monthly Cost
@@ -44,6 +43,9 @@ Project: gordonmurray/terraform_rds_debezium_kafka_ksqldb
  ├─ Database instance (on-demand, Single-AZ, db.t4g.micro)                        730  hours                         $12.41
  ├─ Storage (general purpose SSD, gp2)                                             20  GB                             $2.54
  └─ Additional backup storage                                       Monthly cost depends on usage: $0.095 per GB
+
+ aws_elasticache_replication_group.default
+ └─ ElastiCache (on-demand, cache.t4g.micro)                                      730  hours                         $12.41
 
  aws_instance.debezium_ksqldb
  ├─ Instance usage (Linux/UNIX, on-demand, t4g.small)                             730  hours                         $13.43
@@ -92,18 +94,20 @@ Project: gordonmurray/terraform_rds_debezium_kafka_ksqldb
  ├─ Secret                                                                          1  months                         $0.40
  └─ API requests                                                    Monthly cost depends on usage: $0.05 per 10k requests
 
- OVERALL TOTAL                                                                                                      $159.76
+ OVERALL TOTAL                                                                                                      $172.17
 ──────────────────────────────────
-37 cloud resources were detected:
-∙ 10 were estimated, 6 of which include usage-based costs, see https://infracost.io/usage-file
-∙ 27 were free:
-  ∙ 7 x aws_security_group_rule
+45 cloud resources were detected:
+∙ 11 were estimated, 7 of which include usage-based costs, see https://infracost.io/usage-file
+∙ 34 were free:
+  ∙ 11 x aws_security_group_rule
+  ∙ 4 x aws_security_group
   ∙ 3 x aws_route_table_association
-  ∙ 3 x aws_security_group
   ∙ 3 x aws_subnet
   ∙ 1 x aws_db_option_group
   ∙ 1 x aws_db_parameter_group
   ∙ 1 x aws_db_subnet_group
+  ∙ 1 x aws_elasticache_parameter_group
+  ∙ 1 x aws_elasticache_subnet_group
   ∙ 1 x aws_internet_gateway
   ∙ 1 x aws_key_pair
   ∙ 1 x aws_msk_configuration
@@ -116,7 +120,7 @@ Project: gordonmurray/terraform_rds_debezium_kafka_ksqldb
 ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━┓
 ┃ Project                                            ┃ Monthly cost ┃
 ┣━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╋━━━━━━━━━━━━━━┫
-┃ gordonmurray/terraform_rds_debezium_kafka_ksqldb   ┃ $160         ┃
+┃ gordonmurray/terraform_rds_debezium_kafka_ksqldb   ┃ $172         ┃
 ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┻━━━━━━━━━━━━━━┛
 ```
 
