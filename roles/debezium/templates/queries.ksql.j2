@@ -1,6 +1,6 @@
 SET 'auto.offset.reset' = 'earliest';
 
-CREATE STREAM users (
+CREATE OR REPLACE STREAM users (
     id INT,
     username STRING,
     email STRING
