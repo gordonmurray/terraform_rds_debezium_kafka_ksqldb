@@ -62,3 +62,36 @@
     state: started
     enabled: yes
   when: upload_result.changed
+
+- set_fact:
+    # define the topic to create a stream from
+    topic: "example.my_database.users"
+
+  # Read in the ksql query from a file
+- set_fact:
+    file_content: "{{ lookup('template', 'queries.ksql.j2', vars={topic: topic}) }}"
+
+# Encapsulate the query with a ksql key
+# This results in a body of {"ksql":"the actual query"}
+- set_fact:
+    body_content:
+      ksql: "{{ file_content }}"
+
+# Perform a Post request to submit the ksql to ksqldb
+- name: Submit the ksql query to ksqldb
+  ansible.builtin.uri:
+    url: http://localhost:8088/ksql
+    method: POST
+    headers:
+      Content-Type: "application/json"
+    body_format: json
+    body: "{{ body_content }}"
+    status_code:
+      - 200
+      - 201
+  register: result
+
+# Sometimes Posting the query fails, show the error message
+- name: Debug submitting the query to ksqldb
+  ansible.builtin.debug:
+    var: result
