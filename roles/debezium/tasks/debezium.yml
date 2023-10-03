@@ -57,7 +57,7 @@
     dest: /home/ubuntu/kafka/config/connect-distributed.properties
     owner: root
     group: root
-    mode: '0644'
+    mode: "0644"
 
 - name: Perform systemctl daemon-reload
   systemd:
@@ -79,6 +79,24 @@
     owner: ubuntu
     group: ubuntu
     mode: "0664"
+
+- name: Check if example topic already exists
+  shell: "./kafka/bin/kafka-topics.sh --list --bootstrap-server localhost:9092 | grep '^example$'"
+  register: result
+  ignore_errors: true
+
+- name: Create example topic if it does not exist
+  command: "./kafka/bin/kafka-topics.sh --create --bootstrap-server localhost:9092 --topic example --partitions 3 --replication-factor 1"
+  when: result.rc != 0
+
+- name: Check if example.my_database.users topic already exists
+  shell: "./kafka/bin/kafka-topics.sh --list --bootstrap-server localhost:9092 | grep '^example.my_database.users$'"
+  register: result
+  ignore_errors: true
+
+- name: Create example.my_database.users topic if it does not exist
+  command: "./kafka/bin/kafka-topics.sh --create --bootstrap-server localhost:9092 --topic example.my_database.users --partitions 3 --replication-factor 1"
+  when: result.rc != 0
 
 - name: PUT the source connector config to Debezium
   ansible.builtin.shell:
