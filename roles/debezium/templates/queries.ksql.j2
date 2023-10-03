@@ -1,0 +1,11 @@
+SET 'auto.offset.reset' = 'earliest';
+
+CREATE STREAM users (
+    id INT,
+    username STRING,
+    email STRING
+) WITH (
+    KAFKA_TOPIC='{{ topic }}',
+    VALUE_FORMAT='JSON',
+    PARTITIONS=1
+);
