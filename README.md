@@ -6,6 +6,8 @@ MariaDB will contain a users table with some sample data, Debezium will snapshot
 
 This showcases a CDC process from MariaDB to Redis that can be built upon for real world use cases such as caching data.
 
+![Change Data Capture (CDC) from MariaDB on RDS to Redis on Elasticache, using Debezium and ksqlDB](files/diagram.png)
+
 To use this repo you will need:
 
 * Terraform - Tested using v1.5.7
