@@ -41,12 +41,4 @@ resource "aws_instance" "debezium_ksqldb" {
     http_endpoint = "enabled"
   }
 
-  user_data = templatefile("files/user_data.sh", {
-    brokers           = var.warpstream_broker
-    database_host     = aws_db_instance.default.address
-    database_username = aws_db_instance.default.username
-    database_password = random_password.password.result
-    database_schema   = "sample_database"
-  })
-
 }
