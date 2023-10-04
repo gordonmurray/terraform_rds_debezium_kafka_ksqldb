@@ -1,11 +1,17 @@
-# Terraform RDS, Debezium, Kafka and ksqlDB
+# Change Data Capture (CDC) from MariaDB on RDS to Redis on Elasticache, using Debezium and ksqlDB.
 
-Create an environment on AWS using Terraform and Ansible to show a Change Data Capture (CDC) process working end to end from MariaDB on RDS to Redis on Elasticache, using Debezium and ksqlDB.
+This project creates an environment on AWS using Terraform and Ansible to show a Change Data Capture (CDC) process working end to end from MariaDB on RDS to Redis on Elasticache, using Debezium and ksqlDB.
 
-You will need:
+MariaDB will contain a users table with some sample data, Debezium will snapshot that data and send any changes to a Kafka cluster. Ksqldb will read from Kafka, count the users and sink the resulting count to Redis.
+
+This showcases a CDC process from MariaDB to Redis that can be built upon for real world use cases such as caching data.
+
+To use this repo you will need:
 
 * Terraform - Tested using v1.5.7
 * Ansible - Tested using 2.14.2
+
+Terraform is used to create the neccessary resources on AWS including an RDS instance, an Elasticache instance and related resources such as subnets and security groups within a VPC. Terraform uses the Ansible Provider to start an Ansible playbook that is used to install and configure Debezium and ksqlDB to process the data.
 
 Once you have cloned the repository, perform the following Ansible command to install cloud.terraform to enable the Ansible provider for Terraform.
 
@@ -21,13 +27,17 @@ terraform init
 terraform apply
 ```
 
-# Options
+# MSK, RedPanda or WarpStream Options
 
-If you would prefer not to use MSK, you can update /roles/debezium/tasks/main.yml to use Ansible to install either [WarpStream](https://www.warpstream.com) or [RedPanda](https://redpanda.com/) instead. Also delete the msk.tf and s3.tf files so an MSK cluster and an s3 bucket isn't created.
+[RedPanda](https://redpanda.com/) is used by default to create a local kafka compatible cluster to keep costs low.
+
+If you would prefer to use AWS MSK you can rename msk.tf.backup to msk.tf and allow Terraform to create the MSK cluster.
+
+Alternatively you can use [WarpStream](https://www.warpstream.com) for an s3 backed kafka compatible cluster.
 
 If you are using WarpStream, populate the WarpStream vars in playbook.yml to include your API key, cluster ID and an s3 bucket
 
-# Cost estimate
+# Cost estimate (including AWS MSK)
 
 ```
 Project: gordonmurray/terraform_rds_debezium_kafka_ksqldb
