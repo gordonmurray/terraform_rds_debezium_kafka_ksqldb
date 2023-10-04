@@ -1,0 +1,33 @@
+---
+- name: Upload and interpolate the source connector
+  template:
+    src: mariadb_source_connector.json.j2
+    dest: /home/ubuntu/mariadb_source_connector.json
+    owner: ubuntu
+    group: ubuntu
+    mode: "0664"
+
+- name: Check if example topic already exists in kafka
+  shell: "./kafka/bin/kafka-topics.sh --list --bootstrap-server localhost:9092 | grep '^example$'"
+  register: result
+  ignore_errors: true
+
+- name: Create example topic if it does not exist in kafka
+  command: "./kafka/bin/kafka-topics.sh --create --bootstrap-server localhost:9092 --topic example --partitions 3 --replication-factor 1"
+  when: result.rc != 0
+
+- name: Check if example.my_database.users topic already exists
+  shell: "./kafka/bin/kafka-topics.sh --list --bootstrap-server localhost:9092 | grep '^example.my_database.users$'"
+  register: result
+  ignore_errors: true
+
+- name: Create example.my_database.users topic if it does not exist
+  command: "./kafka/bin/kafka-topics.sh --create --bootstrap-server localhost:9092 --topic example.my_database.users --partitions 3 --replication-factor 1"
+  when: result.rc != 0
+
+- name: PUT the Mariadb source connector config to Debezium
+  ansible.builtin.shell:
+    cmd: >
+      curl -X PUT http://localhost:8083/connectors/mariadb-source/config
+      -H "Content-Type: application/json"
+      -d @/home/ubuntu/mariadb_source_connector.json

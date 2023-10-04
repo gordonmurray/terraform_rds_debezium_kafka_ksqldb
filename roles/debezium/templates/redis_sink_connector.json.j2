@@ -1,0 +1,11 @@
+{
+    "connector.class": "com.github.jcustenborder.kafka.connect.redis.RedisSinkConnector",
+    "tasks.max": "1",
+    "topics": "USERS_COUNT",
+    "redis.hosts": "{{ redis_host }}:{{ redis_port }}",
+    "redis.database": "0",
+    "key.converter": "org.apache.kafka.connect.json.JsonConverter",
+    "value.converter": "org.apache.kafka.connect.json.JsonConverter",
+    "key.converter.schemas.enable": "false",
+    "value.converter.schemas.enable": "false"
+}

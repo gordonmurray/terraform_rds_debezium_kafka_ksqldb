@@ -2,10 +2,16 @@ SET 'auto.offset.reset' = 'earliest';
 
 CREATE OR REPLACE STREAM users (
     id INT,
+    companyid INT,
     username STRING,
     email STRING
 ) WITH (
-    KAFKA_TOPIC='{{ topic }}',
+    KAFKA_TOPIC='example.my_database.users',
     VALUE_FORMAT='JSON',
-    PARTITIONS=1
+    PARTITIONS=3
 );
+
+CREATE OR REPLACE TABLE users_count AS
+   SELECT companyid, COUNT(*) AS record_count
+   FROM users
+   GROUP BY companyid;

@@ -1,0 +1,16 @@
+---
+- name: Upload and interpolate the source connector
+  template:
+    src: redis_sink_connector.json.j2
+    dest: /home/ubuntu/redis_sink_connector.json
+    owner: ubuntu
+    group: ubuntu
+    mode: "0664"
+
+
+- name: PUT the Redis sink connector config to Debezium
+  ansible.builtin.shell:
+    cmd: >
+      curl -X PUT http://localhost:8083/connectors/redis-sink/config
+      -H "Content-Type: application/json"
+      -d @/home/ubuntu/redis_sink_connector.json

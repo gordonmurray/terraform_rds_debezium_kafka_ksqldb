@@ -1,15 +1,21 @@
 ---
-- name: Set up the database
+- name: Seed the database
   include_tasks: database.yml
 
-#- name: Install WarpStream
+#- name: Install and configure WarpStream
 #  include_tasks: warpstream.yml
 
-#- name: Install RedPanda
-#  include_tasks: redpanda.yml
+- name: Install and configure RedPanda
+  include_tasks: redpanda.yml
 
-- name: Configure Debezium
+- name: Install and configure Debezium
   include_tasks: debezium.yml
 
-- name: Configure ksqlDB
+- name: Create MariaDB source connector
+  include_tasks: mariadb_source_connector.yml
+
+- name: Install and configure ksqlDB
   include_tasks: ksqldb.yml
+
+- name: Create Redis sink connector
+  include_tasks: redis_sink_connector.yml
