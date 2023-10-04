@@ -2,7 +2,7 @@
 
 This project creates an environment on AWS using Terraform and Ansible to show a Change Data Capture (CDC) process working end to end from MariaDB on RDS to Redis on Elasticache, using Debezium and ksqlDB.
 
-MariaDB will contain a [users table](./roles/debezium/files/create_users_table.sql) with some sample data, Debezium will [snapshot](./roles/debezium/files/templates/mariadb_source_connector.json.j2) that data and send any changes to a ([RedPanda](./roles/debezium/tasks/redpanda.yml)) Kafka cluster. Ksqldb will read from Kafka, count the users and [sink](./roles/debezium/files/templates/redis_sink_connector.json.j2) the resulting count to Redis.
+MariaDB will contain a [users table](./roles/debezium/files/create_users_table.sql) with some sample data, Debezium will [snapshot](./roles/debezium/templates/mariadb_source_connector.json.j2) that data and send any changes to a ([RedPanda](./roles/debezium/tasks/redpanda.yml)) Kafka cluster. Ksqldb will read from Kafka, count the users and [sink](./roles/debezium/templates/redis_sink_connector.json.j2) the resulting count to Redis.
 
 This showcases a CDC process from MariaDB to Redis that can be built upon for real world use cases such as caching data.
 
