@@ -22,12 +22,8 @@ resource "local_file" "output_file" {
 rds_host: ${aws_db_instance.default.address}
 rds_username: ${aws_db_instance.default.username}
 rds_password: ${random_password.password.result}
-brokers: ${aws_msk_cluster.kafka.bootstrap_brokers}
+brokers: localhost:9092
+redis_host: ${aws_elasticache_replication_group.default.primary_endpoint_address}
+redis_port: 6379
 EOF
 }
-
-output "msk_bootstrap_brokers" {
-  value       = aws_msk_cluster.kafka.bootstrap_brokers
-  description = "MSK Cluster Bootstrap Brokers"
-}
-

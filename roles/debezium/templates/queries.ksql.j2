@@ -8,10 +8,15 @@ CREATE OR REPLACE STREAM users (
 ) WITH (
     KAFKA_TOPIC='example.my_database.users',
     VALUE_FORMAT='JSON',
+    KEY_FORMAT='JSON',
     PARTITIONS=3
 );
 
-CREATE OR REPLACE TABLE users_count AS
+CREATE OR REPLACE TABLE users_count
+WITH (
+    KEY_FORMAT = 'JSON',
+    VALUE_FORMAT = 'JSON'
+) AS
    SELECT companyid, COUNT(*) AS record_count
    FROM users
    GROUP BY companyid;
