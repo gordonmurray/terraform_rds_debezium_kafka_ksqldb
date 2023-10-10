@@ -4,7 +4,7 @@ resource "ansible_host" "host" {
 }
 
 resource "ansible_playbook" "playbook" {
-  playbook                = "/home/gordon/terraform/terraform_rds_debezium_kafka_ksqldb/playbook.yml"
+  playbook                = "playbook.yml"
   name                    = aws_instance.debezium_ksqldb.public_ip
   replayable              = true
   ignore_playbook_failure = true
